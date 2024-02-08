@@ -1,0 +1,12 @@
+import subprocess  #记住！！！遇到需要终止进程时使用subprocess模块
+
+def kill_process(process_name):
+    try:
+        subprocess.run(['pkill', '-f', process_name]) #这里使用subprocess库中的“pkill”方法
+        print(f"Process '{process_name}' killed successfully"） #打印内容证明内容终止完成
+    except subprocess.CalledProcessError: #若没有终止成功则打印下面这段代码
+        print(f"Failed to kill process'{process_name}'.")
+
+
+process_name = "进程名字" #在这里输入进程名字
+kill_process(process_name) #运行函数
