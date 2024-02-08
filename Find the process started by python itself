@@ -1,0 +1,19 @@
+import psutil
+
+def List_python_process():
+    for proc in psutil.process_iter(attrs=['pid', 'exe']): #遍历processid和程序路径
+        try:
+            #获取进程的可执行文件路径
+            exe_path = proc.info['exe'] 
+            #检查可执行文件路径是否包含python的路径
+            if 'python3' in exe_path.lower():
+                print(f"ProcessID:{proc.info['pid']} |  Exe Path:{exe_path}") #如果找到打印processid和路径
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess): #如果没找到pass
+            pass
+#调用函数以列出python自身启动进程
+List_python_process()
+
+##  这里下面的部分用于解释except后括号内的含义（expect这行代码使代码更加严谨，保证其出现异常时代码不会报错）
+#psutil.nosuchprocess表示尝试访问的进程不存在引发的异常
+#psutil.accessdenied表示尝试访问受限进程时引发的异常
+#psutil.zombieprocess表示尝试访问的进程是僵尸进程（已经终止但父进程还没有回收其资源的进程）
