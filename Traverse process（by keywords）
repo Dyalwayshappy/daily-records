@@ -1,0 +1,13 @@
+import psutil #当需要查找进程时！！！运用psutil模块
+
+def List_Specific_Process(keyword):
+    for i in psutil.process_iter(): #遍历进程名称
+        try:
+            process_name = i.name()
+            if keyword.lower() in process_name.lower(): #判断进程名称是否与查找关键字相同
+                print(f"ProcessID：{i.pid} | Name: {process_name}") #若相同则打印进程id以及进程名称
+        except psutil.NoSuchProcess: #若不存在则跳过函数
+            pass
+
+keyword = ''                  #在这里输入关键字！
+List_Specific_Process(keyword)。 #运行函数
